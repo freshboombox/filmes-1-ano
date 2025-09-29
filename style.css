@@ -12,6 +12,8 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 0;
+    position: relative;
+    overflow-x: hidden;
 }
 
 header {
@@ -57,6 +59,8 @@ section {
     border-radius: 8px;
     background-color: #333;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 10;
 }
 
 h2 {
@@ -127,4 +131,40 @@ footer p {
     font-size: 1rem;
     font-family: 'Open Sans', sans-serif;
 }
+
+/* Efeito de "sangue escorrendo" */
+.blood-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://path_to_blood_image.jpg') repeat;
+    z-index: 1;
+    animation: bloodDrip 3s infinite linear;
+}
+
+@keyframes bloodDrip {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 0 100%;
+    }
+}
+
+/* Adicionando o efeito de respingos de sangue no fundo */
+body::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://path_to_blood_splatter_image.png') center center no-repeat;
+    background-size: cover;
+    opacity: 0.5;
+    z-index: -1;
+}
+
 
