@@ -1,3 +1,4 @@
+/* Reset básico */
 * {
     margin: 0;
     padding: 0;
@@ -5,8 +6,8 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #1c1c1c;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #111;
     color: #fff;
     line-height: 1.6;
     margin: 0;
@@ -14,13 +15,15 @@ body {
 }
 
 header {
-    background-color: #900;
+    background-color: #b22222; /* Vermelho sangue */
     color: #fff;
-    padding: 20px;
+    padding: 40px 20px;
     text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
 }
 
 header h1 {
+    font-family: 'Roboto Condensed', sans-serif;
     font-size: 3rem;
     text-transform: uppercase;
     letter-spacing: 3px;
@@ -28,12 +31,12 @@ header h1 {
 
 nav ul {
     list-style: none;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 nav ul li {
     display: inline;
-    margin-right: 20px;
+    margin-right: 30px;
 }
 
 nav ul li a {
@@ -41,6 +44,7 @@ nav ul li a {
     text-decoration: none;
     font-weight: bold;
     text-transform: uppercase;
+    font-size: 1.2rem;
 }
 
 nav ul li a:hover {
@@ -48,24 +52,32 @@ nav ul li a:hover {
 }
 
 section {
-    padding: 20px;
+    padding: 40px;
     margin: 20px;
     border-radius: 8px;
     background-color: #333;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
 }
 
 h2 {
-    color: #ccc;
-    font-size: 2rem;
-    margin-bottom: 10px;
+    color: #c0c0c0; /* Cor prata */
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
-p, ul {
+p {
     font-size: 1.1rem;
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+ul {
     margin-bottom: 20px;
 }
 
 ul li {
+    font-size: 1.1rem;
     margin-bottom: 10px;
 }
 
@@ -78,13 +90,41 @@ a:hover {
     color: #fff;
 }
 
-footer {
-    text-align: center;
-    background-color: #900;
-    padding: 10px;
+/* Estilo para os botões */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn {
+    background-color: #b22222; /* Vermelho sangue */
     color: #fff;
+    padding: 15px 30px;
+    text-align: center;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.btn:hover {
+    background-color: #900; /* Efeito hover mais intenso */
+}
+
+footer {
+    background-color: #b22222;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.5);
 }
 
 footer p {
     font-size: 1rem;
+    font-family: 'Open Sans', sans-serif;
 }
+
