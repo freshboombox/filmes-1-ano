@@ -1,57 +1,378 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Blog da Franquia Pânico</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Open+Sans:wght@400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>Pânico - Blog da Franquia</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #8B0000 0%, #A0522D  50%, #C0C0C0 100%);
+            min-height: 100vh;
+            color: #1a1a1a;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Emojis de fundo */
+        .background-emojis {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.4;
+        }
+
+        .emoji {
+            position: absolute;
+            font-size: 2.5rem;
+            animation: rise 15s linear infinite;
+        }
+
+        .emoji:nth-child(1) { left: 5%; animation-delay: 0s; }
+        .emoji:nth-child(2) { left: 85%; animation-delay: 2s; }
+        .emoji:nth-child(3) { left: 15%; animation-delay: 4s; }
+        .emoji:nth-child(4) { left: 75%; animation-delay: 6s; }
+        .emoji:nth-child(5) { left: 25%; animation-delay: 8s; }
+        .emoji:nth-child(6) { left: 60%; animation-delay: 10s; }
+        .emoji:nth-child(7) { left: 40%; animation-delay: 12s; }
+        .emoji:nth-child(8) { left: 45%; animation-delay: 14s; }
+
+        @keyframes rise {
+            0% { 
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            40% {
+                opacity: 1;
+            }
+            50% { 
+                transform: translateY(-100px) rotate(180deg);
+                opacity: 1;
+            }
+            60% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 40px 20px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin: 0;
+            text-shadow: 3px 3px 6px rgba(139, 0, 0, 0.8);
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
+
+        .intro {
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            line-height: 1.6;
+        }
+
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .movie-card {
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(139, 0, 0, 0.4);
+        }
+
+        .movie-card h3 {
+            color: #ff6b6b;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #ff6b6b;
+            padding-bottom: 10px;
+        }
+
+        .movie-info {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .year {
+            font-weight: bold;
+            color: #ffa500;
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-imdb {
+            background: #f5c518;
+            color: #000;
+        }
+
+        .btn-imdb:hover {
+            background: #e6b800;
+            transform: scale(1.05);
+        }
+
+        .btn-youtube {
+            background: #ff0000;
+            color: #fff;
+        }
+
+        .btn-youtube:hover {
+            background: #cc0000;
+            transform: scale(1.05);
+        }
+
+        .btn-fandom {
+            background: #002a32;
+            color: #fff;
+        }
+
+        .btn-fandom:hover {
+            background: #001a1f;
+            transform: scale(1.05);
+        }
+
+        .footer {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .movies-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .buttons-container {
+                justify-content: center;
+            }
+            
+            .emoji {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Blog da Franquia Pânico (Scream)</h1>
-        <nav>
-            <ul>
-                <li><a href="#sobre">Sobre</a></li>
-                <li><a href="#filmes">Filmes</a></li>
-                <li><a href="#links">Links Úteis</a></li>
-            </ul>
-        </nav>
-    </header>
+    <div class="background-emojis">
+        <div class="emoji">🔪</div>
+        <div class="emoji">🩸</div>
+        <div class="emoji">🌕</div>
+        <div class="emoji">👻</div>
+        <div class="emoji">🔪</div>
+        <div class="emoji">🩸</div>
+        <div class="emoji">🌙</div>
+        <div class="emoji">💀</div>
+    </div>
 
-    <section id="sobre">
-        <h2>Sobre a Franquia</h2>
-        <p>Os filmes da franquia <strong>Pânico</strong> (Scream) são uma mistura única de terror, suspense e um toque de humor negro. Lançada em 1996, a série revolucionou o gênero slasher, trazendo o assassino mascarado Ghostface para as telonas e desafiando as convenções dos filmes de terror. Criada por <a href="https://pt.wikipedia.org/wiki/Wes_Craven" target="_blank">Wes Craven</a> e com roteiro de <a href="https://pt.wikipedia.org/wiki/Kevin_Williams" target="_blank">Kevin Williamson</a>, a série rapidamente se tornou um clássico do cinema.</p>
-        <p>Com uma trama que mistura mistério e tensão, cada filme se passa em torno de um assassinato brutal, com uma série de suspeitos e vítimas, mantendo o público no limite da ansiedade até o final.</p>
-    </section>
+    <div class="container">
+        <header class="header">
+            <h1>PÂNICO</h1>
+            <p>A franquia que redefiniu o terror moderno</p>
+        </header>
 
-    <section id="filmes">
-        <h2>Os Filmes</h2>
-        <p>Ao longo dos anos, a franquia <strong>Pânico</strong> lançou diversos filmes, cada um com novos mistérios e mais ação. Aqui estão os principais:</p>
-        <ul>
-            <li><strong>Pânico (Scream) (1996)</strong> - O começo de tudo, com o surgimento de Ghostface.</li>
-            <li><strong>Pânico 2 (Scream 2) (1997)</strong> - A sequência e a escalada do terror.</li>
-            <li><strong>Pânico 3 (Scream 3) (2000)</strong> - O mistério por trás de uma nova série de mortes.</li>
-            <li><strong>Pânico 4 (Scream 4) (2011)</strong> - Um retorno ao universo dos assassinatos.</li>
-            <li><strong>Pânico (Scream) (2022)</strong> - A reinvenção para uma nova geração.</li>
-        </ul>
-        <p>Para saber mais sobre os filmes, confira a página oficial na <a href="https://pt.wikipedia.org/wiki/Scream" target="_blank">Wikipedia</a>.</p>
-    </section>
+        <section class="intro">
+            <h2>Sobre a Franquia</h2>
+            <p>Pânico é uma das franquias de terror mais influentes e bem-sucedidas do cinema moderno. Criada por Kevin Williamson e dirigida inicialmente por Wes Craven, a série revolucionou o gênero slasher ao combinar elementos clássicos do terror com uma abordagem meta-narrativa inteligente e autoconsciente.</p>
+            <p>A franquia é conhecida por seu icônico assassino mascarado, o Ghostface, e por sua capacidade única de satirizar e homenagear simultaneamente os clichês do cinema de terror, criando uma experiência que é tanto assustadora quanto intelectualmente estimulante.</p>
+        </section>
 
-    <section id="links">
-        <h2>Links Úteis</h2>
-        <p>Confira alguns links essenciais para os fãs da franquia:</p>
-        <div class="button-container">
-            <a href="https://www.youtube.com/watch?v=7gqFkciJxbw" class="btn" target="_blank">Trailer Oficial de Pânico (1996)</a>
-            <a href="https://pt.wikipedia.org/wiki/Scream" class="btn" target="_blank">Página da Wikipedia - Pânico</a>
-            <a href="https://www.imdb.com/title/tt0117571/" class="btn" target="_blank">IMDb - Pânico (1996)</a>
-        </div>
-    </section>
+        <section class="movies-grid">
+            <div class="movie-card">
+                <h3>Pânico (Scream)</h3>
+                <div class="movie-info">
+                    <p><span class="year">1996</span></p>
+                    <p>O filme que iniciou tudo. Sidney Prescott se torna alvo de um assassino mascarado conhecido como Ghostface, que aterroriza a cidade de Woodsboro. Dirigido por Wes Craven e escrito por Kevin Williamson, o filme redefiniu o gênero slasher para uma nova geração.</p>
+                </div>
+                <div class="buttons-container">
+                    <a href="https://www.imdb.com/title/tt0117571/" target="_blank" rel="noopener noreferrer" class="btn btn-imdb">
+                        🎬 IMDb
+                    </a>
+                    <a href="https://www.youtube.com/results?search_query=scream+1996+trailer" target="_blank" rel="noopener noreferrer" class="btn btn-youtube">
+                        📺 YouTube
+                    </a>
+                    <a href="https://scream.fandom.com/wiki/Scream_(1996_film)" target="_blank" rel="noopener noreferrer" class="btn btn-fandom">
+                        📚 Fandom
+                    </a>
+                </div>
+            </div>
 
-    <footer>
-        <p>Blog criado por [Seu Nome] - 2025</p>
-    </footer>
-</body>
+            <div class="movie-card">
+                <h3>Pânico 2 (Scream 2)</h3>
+                <div class="movie-info">
+                    <p><span class="year">1997</span></p>
+                    <p>Sidney agora está na universidade, mas o Ghostface retorna para aterrorizá-la novamente. O filme explora as sequências de filmes de terror e como elas funcionam, mantendo a fórmula inteligente do original enquanto expande o universo da franquia.</p>
+                </div>
+                <div class="buttons-container">
+                    <a href="https://www.imdb.com/title/tt0120082/" target="_blank" rel="noopener noreferrer" class="btn btn-imdb">
+                        🎬 IMDb
+                    </a>
+                    <a href="https://www.youtube.com/results?search_query=scream+2+1997+trailer" target="_blank" rel="noopener noreferrer" class="btn btn-youtube">
+                        📺 YouTube
+                    </a>
+                    <a href="https://scream.fandom.com/wiki/Scream_2" target="_blank" rel="noopener noreferrer" class="btn btn-fandom">
+                        📚 Fandom
+                    </a>
+                </div>
+            </div>
+
+            <div class="movie-card">
+                <h3>Pânico 3 (Scream 3)</h3>
+                <div class="movie-info">
+                    <p><span class="year">2000</span></p>
+                    <p>A trilogia se completa com Sidney enfrentando seu passado em Hollywood, onde um filme baseado nos assassinatos de Woodsboro está sendo produzido. O Ghostface retorna para finalizar o que começou, revelando segredos do passado de Sidney.</p>
+                </div>
+                <div class="buttons-container">
+                    <a href="https://www.imdb.com/title/tt0134308/" target="_blank" rel="noopener noreferrer" class="btn btn-imdb">
+                        🎬 IMDb
+                    </a>
+                    <a href="https://www.youtube.com/results?search_query=scream+3+2000+trailer" target="_blank" rel="noopener noreferrer" class="btn btn-youtube">
+                        📺 YouTube
+                    </a>
+                    <a href="https://scream.fandom.com/wiki/Scream_3" target="_blank" rel="noopener noreferrer" class="btn btn-fandom">
+                        📚 Fandom
+                    </a>
+                </div>
+            </div>
+
+            <div class="movie-card">
+                <h3>Pânico 4 (Scream 4)</h3>
+                <div class="movie-info">
+                    <p><span class="year">2011</span></p>
+                    <p>Após 11 anos, Sidney retorna a Woodsboro para promover seu livro de autoajuda, mas os assassinatos recomeçam. O filme aborda a era das redes sociais e como o terror evoluiu na era digital, introduzindo uma nova geração de personagens.</p>
+                </div>
+                <div class="buttons-container">
+                    <a href="https://www.imdb.com/title/tt1262416/" target="_blank" rel="noopener noreferrer" class="btn btn-imdb">
+                        🎬 IMDb
+                    </a>
+                    <a href="https://www.youtube.com/results?search_query=scream+4+2011+trailer" target="_blank" rel="noopener noreferrer" class="btn btn-youtube">
+                        📺 YouTube
+                    </a>
+                    <a href="https://scream.fandom.com/wiki/Scream_4" target="_blank" rel="noopener noreferrer" class="btn btn-fandom">
+                        📚 Fandom
+                    </a>
+                </div>
+            </div>
+
+            <div class="movie-card">
+                <h3>Pânico (Scream 5)</h3>
+                <div class="movie-info">
+                    <p><span class="year">2022</span></p>
+                    <p>Uma nova geração enfrenta o Ghostface em Woodsboro, 25 anos após os assassinatos originais. O filme serve como um "requel" (reboot + sequel), passando o bastão para novos personagens enquanto honra o legado da franquia original.</p>
+                </div>
+                <div class="buttons-container">
+                    <a href="https://www.imdb.com/title/tt11245972/" target="_blank" rel="noopener noreferrer" class="btn btn-imdb">
+                        🎬 IMDb
+                    </a>
+                    <a href="https://www.youtube.com/results?search_query=scream+2022+trailer" target="_blank" rel="noopener noreferrer" class="btn btn-youtube">
+                        📺 YouTube
+                    </a>
+                    <a href="https://scream.fandom.com/wiki/Scream_(2022_film)" target="_blank" rel="noopener noreferrer" class="btn btn-fandom">
+                        📚 Fandom
+                    </a>
+                </div>
+            </div>
+
+            <div class="movie-card">
+                <h3>Pânico VI (Scream VI)</h3>
+                <div class="movie-info">
+                    <p><span class="year">2023</span></p>
+                    <p>Os sobreviventes dos assassinatos de Ghostface deixam Woodsboro para trás e começam um novo capítulo em Nova York. Mas o passado os alcança quando um novo Ghostface emerge, mais brutal e implacável que nunca.</p>
+                </div>
+                <div class="buttons-container">
+                    <a href="https://www.imdb.com/title/tt17663992/" target="_blank" rel="noopener noreferrer" class="btn btn-imdb">
+                        🎬 IMDb
+                    </a>
+                    <a href="https://www.youtube.com/results?search_query=scream+vi+2023+trailer" target="_blank" rel="noopener noreferrer" class="btn btn-youtube">
+                        📺 YouTube
+                    </a>
+                    <a href="https://scream.fandom.com/wiki/Scream_VI" target="_blank" rel="noopener noreferrer" class="btn btn-fandom">
+                        📚 Fandom
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>A franquia Pânico continua a assustar e entreter audiências ao redor do mundo, provando que o terror inteligente nunca sai de moda.</p>
+            <p>Criado com paixão pelos fãs do gênero terror.</p>
+        </footer>
+    </div>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98a5bdbe538dc20f',t:'MTc1OTc1OTgxNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
-
